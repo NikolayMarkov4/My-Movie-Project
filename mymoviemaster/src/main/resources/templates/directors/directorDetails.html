@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root-details">
+        <h1 class="text-center text-light">Director Details</h1>
+        <hr class="hr-2 bg-white w-30">
+
+        <section id="actor-details" class="p-lg-4">
+            <div class="justify-content-center">
+                <section id="director-name-and-photo" class="bg-light justify-content-center">
+                    <div class="text-center m-auto p-lg-4">
+                        <img  id="image-director" th:src="${director.photo}" width="250" height="250">
+                    </div>
+                    <h2 class="text-center text-dark m-auto" th:text="${director.name}"></h2>
+                </section>
+                <section id="director-biography" class="bg-light justify-content-center">
+                    <p class="text-dark text-center h4 p-3">Director biography...</p>
+                    <div class="bg-light justify-content-center m-3">
+                        <p class="justify-content-center m-auto text-dark p-3" th:text="${director.biography}"></p>
+                    </div>
+                </section>
+                <hr class="hr-2 bg-dark w-25 m-auto justify-content-center">
+            </div>
+        </section>
+
+        <div id="movies-try">
+            <p class="text-center text-light h4">Movies directed by this director</p>
+            <section id ="director-related-movies" class="bg-light m-auto justify-content-center">
+                <div class="text-center justify-content-center">
+                    <th:block>
+                        <th:block th:each="movie, iter : ${movies}">
+                            <div class="justify-content-center m-1 p-2 col-sm ">
+                                <img  id="image-movie" th:src="${movie.photo}" width="250" height="250">
+                                <p th:text="${movie.name}" class="h4"></p>
+                            </div>
+                        </th:block>
+                    </th:block>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root-details">
+        <h1 class="text-center text-light">Actor Details</h1>
+        <hr class="hr-2 bg-white w-30">
+
+        <section id="actor-details" class="p-lg-4">
+            <div class="justify-content-center">
+                <section id="actor-name-and-photo" class="bg-light justify-content-center">
+                    <div class="text-center m-auto p-lg-4">
+                        <img  id="image-actor" th:src="${actor.photo}" width="250" height="250">
+                    </div>
+                    <h2 class="text-center text-dark m-auto" th:text="${actor.name}"></h2>
+                </section>
+                <section id="actor-biography" class="bg-light justify-content-center">
+                    <div class="bg-light justify-content-center m-auto">
+                        <p class="justify-content-center m-auto text-dark p-3" th:text="${actor.biography}"></p>
+                    </div>
+                </section>
+                <hr class="hr-2 bg-dark w-25 m-auto justify-content-center">
+            </div>
+        </section>
+
+        <div id="movies-for-actor" class="p-lg-4">
+            <p class="text-light h4 text-center ">Movies that this actor plays in ...</p>
+            <section id ="actor-related-movies" class="bg-light p-3 m-auto justify-content-center">
+                <div class="text-center m-3 border border-light rounded-right p-2">
+                    <div class="text-dark justify-content-center d-inline-flex">
+                        <th:block th:each="movie, iter : ${movies}">
+                            <div class="text-light justify-content-center m-3">
+                                <a th:href="@{/movies/movieDetails/{id}(id=${movie.id})}">
+                                    <img th:src="${movie.photo}" width="80" height="80" alt="quotes">
+                                </a>
+                                <a th:href="@{/movie/movieDetails/{id}(id=${movie.id})}">
+                                    <h3 th:text="${movie.name}" class="text-dark"></h3>
+                                </a>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

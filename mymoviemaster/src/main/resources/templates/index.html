@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <div>
+            <p class="h3 text-light m-5  border-bottom"> Welcome to our community. Find out your movie.</p>
+        </div>
+
+        <div class="text-center p-lg-4">
+            <a class="btn-link h4 text-light border-bottom" th:href="@{/users/login}">Login if you have account..</a>
+        </div>
+
+        <div class="text-center">
+            <a class="btn-link h4 text-light border-bottom" th:href="@{/users/register}">Register if you don't .....</a>
+        </div>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

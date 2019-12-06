@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <section id="admin-view-directors">
+            <th:block th:each="user, iter : ${users}">
+                <div class="m-3 border border-light p-3 bg-info d-flex container">
+                    <div class="col-sm">
+                        <p th:text="${user.username}" class="h4"></p>
+                    </div>
+                    <div class="col-sm">
+                        <p th:text="${user.email}" class="h4"></p>
+                    </div>
+                    <div id="user-admin-buttons" class="col-sm">
+                        <a th:href="@{/users/userProfile/{id}(id=${user.id})}"
+                           class="btn btn-secondary font-weight-bold text-white">Details</a>
+                        <a th:href="@{/users/userDelete/{id}(id=${user.id})}"
+                           class="btn btn-danger font-weight-bold text-white">Delete</a>
+                    </div>
+                </div>
+            </th:block>
+        </section>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

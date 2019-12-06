@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <section id="movies-home-section" class="d-inline">
+            <p class="text-light h3">All movies in our site ...</p>
+
+            <th:block th:each="director, iter : ${directors}">
+                <div class="text-center m-3 border border-light rounded-right d-flex p-4 bg-info">
+                    <div class="text-light col-sm m-2">
+                        <img th:src="${director.photo}" width="80" height="80" alt="quotes">
+                        <h3 th:text="${director.name}"></h3>
+                    </div>
+
+                    <div class="text-light col-sm m-2">
+                        <p class="h5" th:text="${director.shortBiography}"></p>
+                    </div>
+
+                    <div class="active text-center col-sm m-2">
+                        <a th:href="@{/directors/directorDetails/{id}(id=${director.id})}"
+                           class="btn btn-secondary font-weight-bold text-white">See More</a>
+                    </div>
+                </div>
+
+<!--                <div class="modal" th:name="${iter.index}">-->
+<!--                  <p>fuck you</p>-->
+<!--                </div>-->
+<!--                <script>-->
+<!--                    var iter = /*[[${iter.index}]]*/ null;-->
+<!--                    var button = document.getElementById(iter);-->
+<!--                    var modal = document.getElementsByName(iter);-->
+<!--                    var close = document.getElementById('closeButton');-->
+
+<!--                    button.onclick = function() {-->
+<!--                        modal.style.display = "block";-->
+<!--                    };-->
+<!--                    -->
+<!--                    close.onclick =function(){-->
+<!--                        modal.style.display = "none";-->
+<!--                    }-->
+<!--                </script>;-->
+            </th:block>
+
+
+            <!--todo: pop up this shit-->
+        </section>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

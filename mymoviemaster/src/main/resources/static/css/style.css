@@ -1,0 +1,60 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-image: url(https://wallpaperaccess.com/full/235860.jpg);
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Oswald', sans-serif !important;
+}
+
+#container-wrapper {
+    height: 100%;
+    position:relative;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color: rgba(0,0,0,0.7);
+    padding-bottom: 40px;
+    overflow: auto;
+}
+
+#root {
+    margin: 2% 5% ;
+}
+
+#root-register, #root-login{
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 90%;
+    padding: 7%;
+    background-color: rgba(0,0,0,0.2);
+}
+footer {
+    clear: both;
+    color: white;
+    text-align: center;
+    position: absolute;
+    width: 80.1%;
+    margin-top: -40px;
+    margin-left: 10%;
+}
+
+#movie-description-right, #movie-name-and-photo-left{
+    width: 50%;
+    box-shadow: 2px 2px 5px grey;
+}
+
+#error-body {
+    background-image: url(https://www.wallpaperup.com/uploads/wallpapers/2013/06/13/102205/1417a85e323895d747c55adc36c4a6cb.jpg);
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}

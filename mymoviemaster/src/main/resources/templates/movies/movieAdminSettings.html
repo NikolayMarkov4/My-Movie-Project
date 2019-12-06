@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <section id="admin-add-section" class="d-flex justify-content-center">
+            <a class="btn btn-primary btn-lg" th:href="@{/movies/adminCreateMovie}">Create New Movie</a>
+        </section>
+
+        <hr class="hr-2 bg-white w-30">
+
+        <section id="admin-view-directors" class="d-inline justify-content-center">
+            <th:block th:each="movie, iter : ${movies}">
+                <div class="text-center m-3 border border-light rounded-right p-4 bg-info">
+                    <div class="text-light justify-content-center">
+                        <img th:src="${movie.photo}" width="80" height="80" alt="quotes">
+                        <h3 th:text="${movie.name}"></h3>
+                    </div>
+
+                    <a th:href="@{/movies/movieDetails/{id}(id=${movie.id})}" class="btn btn-secondary font-weight-bold text-white">Details</a>
+                    <a th:href="@{/movies/movieEdit/{id}(id=${movie.id})}" class="btn btn-success font-weight-bold text-white">Edit</a>
+                    <a th:href="@{/movies/movieDelete/{id}(id=${movie.id})}" class="btn btn-danger font-weight-bold text-white">Delete</a>
+                </div>
+            </th:block>
+        </section>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

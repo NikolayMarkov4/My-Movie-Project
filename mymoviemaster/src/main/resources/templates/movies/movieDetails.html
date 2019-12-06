@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root-details">
+        <h1 class="text-center text-light">Movie Details</h1>
+        <hr class="hr-2 bg-white w-30">
+
+        <section id="actor-details" class="m-3">
+            <div class="d-flex bg-light">
+                <section id="movie-name-and-photo-left" class="p-1">
+                    <div class="text-center m-auto p-lg-4">
+                        <img id="image-actor" th:src="${movie.photo}" width="250" height="250">
+                    </div>
+                    <h2 class="text-center text-dark" th:text="${movie.name}"></h2>
+                </section>
+                <section id="movie-description-right" class="p-1">
+                    <div class="p-4">
+                        <p class="text-dark h5"
+                           th:text="'Movie duration is ' + ${movie.movieMinutes} + ' minutes.'"></p>
+                    </div>
+                    <div class="bg-light p-1">
+                        <p class="text-dark h5 m-3">Movie Description</p>
+                        <p class="text-dark h6 m-3" th:text="${movie.description}"></p>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <section id="director-details" class="m-3">
+            <div class="text-dark col-sm m-2 bg-light">
+                <p class="text-dark h3 p-3">Director of the movie...</p>
+                <div class="justify-content-center p-3 text-center">
+                    <a th:href="@{/directors/directorDetails/{id}(id=${director.id})}">
+                        <img th:src="${director.photo}" width="80" height="80" alt="quotes">
+                    </a>
+                    <a th:href="@{/directors/directorDetails/{id}(id=${director.id})}">
+                        <h3 th:text="${director.name}" class="text-dark"></h3>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="actor-related-movies" class="m-3">
+            <div id="movies-for-actor" class="bg-light">
+                <p class="text-dark h3 p-3">Actors in the movie...</p>
+                <div class="text-center m-3 border border-light rounded-right p-2">
+                    <div class="text-dark justify-content-center d-inline-flex">
+                        <th:block th:each="actor, iter : ${actors}">
+                            <div class="text-light justify-content-center m-3">
+                                <a th:href="@{/actor/actorDetails/{id}(id=${actor.id})}">
+                                    <img th:src="${actor.photo}" width="80" height="80" alt="quotes">
+                                </a>
+                                <a th:href="@{/actor/actorDetails/{id}(id=${actor.id})}">
+                                    <h3 th:text="${actor.name}" class="text-dark"></h3>
+                                </a>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <form class="form w-25 mx-auto" th:href="@{/movies/movieDetails/{id}(id=${movieId})}" method="post">
+            <div>
+                <button type="submit" class="btn btn-dark">Add to WatchList</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

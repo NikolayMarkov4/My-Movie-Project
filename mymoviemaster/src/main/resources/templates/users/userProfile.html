@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <hr class="hr-2 bg-white w-30">
+        <section id="user-basic-info" class="justify-content-center">
+            <div class="bg-info justify-content-center">
+                <p class="h4 p-2 text-center" th:text="${user.username}"></p>
+                <p class="h5 p-2 text-center" th:text="${user.email}"></p>
+            </div>
+        </section>
+
+        <hr class="hr-2 bg-white w-30">
+
+        <section id="user-watch-list" class="justify-content-center">
+            <th:block th:each="movie, iter : ${movies}">
+                <div class="text-center m-3 border border-light rounded-right p-4 bg-info">
+                    <div class="text-light justify-content-center">
+                        <img th:src="${movie.photo}" width="80" height="80" alt="quotes">
+                        <h3 th:text="${movie.name}"></h3>
+                    </div>
+                </div>
+            </th:block>
+        </section>
+        <hr class="hr-2 bg-white w-30">
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

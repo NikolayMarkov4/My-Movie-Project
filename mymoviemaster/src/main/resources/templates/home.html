@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <section id="movies-home-section">
+            <p class="text-light h3">Movies that you may like ...</p>
+            <div class="text-center m-3 border border-light rounded-right p-4 bg-secondary">
+                <div class="text-light justify-content-center d-inline-flex">
+                    <th:block th:each="movie, iter : ${movies}">
+                        <div class="text-dark col-sm m-2">
+                            <a th:href="@{/movies/movieDetails/{id}(id=${movie.id})}">
+                                <img th:src="${movie.photo}" width="80" height="80" alt="quotes">
+                            </a>
+                            <a th:href="@{/movies/movieDetails/{id}(id=${movie.id})}">
+                                <h3 th:text="${movie.name}" class="text-light"></h3>
+                            </a>
+                        </div>
+                    </th:block>
+                    <p th:href="@{/movies/allMovies}"></p>
+                </div>
+                
+                <div>
+                    <a href=""></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="actors-home-section">
+            <p class="text-light h3">Actors that you may like ...</p>
+            <div class="text-center m-3 border border-light rounded-right p-4 bg-secondary">
+                <div class="text-dark justify-content-center d-inline-flex">
+                    <th:block th:each="actor, iter : ${actors}">
+                        <div class="text-light col-sm m-2">
+                            <a th:href="@{/actors/actorDetails/{id}(id=${actor.id})}">
+                                <img th:src="${actor.photo}" width="80" height="80" alt="quotes">
+                            </a>
+                            <a th:href="@{/actors/actorDetails/{id}(id=${actor.id})}">
+                            <h3 th:text="${actor.name}" class="text-light"></h3>
+                            </a>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </section>
+
+        <section id="directors-home-section">
+            <p class="text-light h3">Directors that you may like ...</p>
+            <div class="text-center m-3 border border-light rounded-right p-4 bg-secondary">
+                <div class="text-dark justify-content-center d-inline-flex">
+                    <th:block th:each="director, iter : ${directors}">
+                        <div class="text-light col-sm m-2">
+                            <a th:href="@{/directors/directorDetails/{id}(id=${director.id})}">
+                                <img th:src="${director.photo}" width="80" height="80" alt="quotes">
+                            </a>
+                            <a th:href="@{/directors/directorDetails/{id}(id=${director.id})}">
+                                <h3 th:text="${director.name}" class="text-light"></h3>
+                            </a>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

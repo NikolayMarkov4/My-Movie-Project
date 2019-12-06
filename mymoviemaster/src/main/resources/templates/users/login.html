@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root-login">
+        <h1 class="text-center text-light">Login</h1>
+        <hr class="hr-2 bg-white w-30">
+        <form class="form w-25 mx-auto" th:action="@{/users/login}" method="post">
+            <div class="form-group">
+                <label for="username" class="font-weight-bold text-light">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Username..."  autofocus="autofocus" name="username">
+            </div>
+            <div class="form-group">
+                <label for="password" class="font-weight-bold text-light">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password..." name="password">
+            </div>
+            <hr class="hr-2 bg-white">
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-dark">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

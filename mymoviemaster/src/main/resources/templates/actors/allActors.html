@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <section id="movies-home-section" class="d-inline">
+            <p class="text-light h3">All movies in our site ...</p>
+
+            <th:block th:each="actor, iter : ${actors}">
+                <div class="text-center m-3 border border-light rounded-right d-flex p-4 bg-info">
+                    <div class="text-light col-sm m-2">
+                        <img th:src="${actor.photo}" width="80" height="80" alt="quotes">
+                        <h3 th:text="${actor.name}"></h3>
+                    </div>
+
+                    <div class="active text-center col-sm m-2">
+                        <a th:href="@{/actors/actorDetails/{id}(id=${actor.id})}"
+                           class="btn btn-secondary font-weight-bold text-white">See More</a>
+                    </div>
+
+                    <!--                    <div class="text-light col-sm m-2">-->
+                    <!--                        <p class="h5" th:text="${director.smallBiography}"></p>-->
+                    <!--                    </div>-->
+
+<!--                    <div class="active text-center col-sm m-2">-->
+<!--                        <button type="button" class="btn btn-dark" data-toggle="modal" th:attr="data-target='#' + ${actor.id}">Full Biography</button>-->
+<!--                    </div>-->
+
+<!--                    <div th:id="${actor.id}" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                        <div class="modal-dialog" role="document">-->
+<!--                            <div class="modal-content">-->
+<!--                                <div class="modal-header">-->
+<!--                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+<!--                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                        <span aria-hidden="true">&times;</span>-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                                <div class="modal-body">-->
+<!--                                    ...-->
+<!--                                </div>-->
+<!--                                <div class="modal-footer">-->
+<!--                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                                    <button type="button" class="btn btn-primary">Save changes</button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;todo: pop up this shit&ndash;&gt;-->
+                </div>
+            </th:block>
+        </section>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

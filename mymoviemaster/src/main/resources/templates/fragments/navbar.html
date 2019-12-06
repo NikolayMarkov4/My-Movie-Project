@@ -1,0 +1,58 @@
+<th:block>
+    <th:block>
+        <nav class="navbar navbar-expand-sm navbar-grey bg-dark font-weight-bold">
+            <a class="navbar-brand" th:href="@{/}">My Movie Master</a>
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbar">
+                <th:block sec:authorize="isAnonymous()">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/users/login}">Login</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/users/register}">Register</a>
+                        </li>
+                    </ul>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <ul class="navbar-nav p-0 m-0">
+                            <li class="nav-item active">
+                                <div class="dropdown show">
+                                    <a class="nav-link active dropdown-toggle" href="#" role="button"
+                                       id="moderatorDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                       aria-expanded="false">
+                                        Admin Settings
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="moderatorDropdown">
+                                        <a class="dropdown-item" th:href="@{/actors/actorAdminSettings}">Actors</a>
+                                        <a class="dropdown-item"
+                                           th:href="@{/directors/directorAdminSettings}">Directors</a>
+                                        <a class="dropdown-item" th:href="@{/movies/movieAdminSettings}">Movies</a>
+                                        <a class="dropdown-item" th:href="@{/users/allUsersAdminSettings}">All Users</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </th:block>
+                        <ul class="navbar">
+                            <li>
+                                <a class="nav-link" th:href="@{/movies/allMovies}">Movies</a>
+                            <li>
+                                <a class="nav-link" th:href="@{/directors/allDirectors}">Directors</a>
+                            </li>
+                            <li>
+                                <a class="nav-link" th:href="@{/actors/allActors}">Actors</a>
+                            </li>
+                            <li class="nav-link active">
+                                <form action="/logout?login" method="post">
+                                    <button class="btn btn-sm btn-outline-secondary">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                </th:block>
+
+
+            </div>
+        </nav>
+    </th:block>
+</th:block>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <h1 class="text-center text-light">Delete Movie</h1>
+        <hr class="hr-2 bg-white w-30">
+        <form class="form w-25 mx-auto" th:href="@{/movies/movieDelete/{id}(id=${movieId})}" method="post"
+              enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="movie-name" class="font-weight-bold text-light">Name</label>
+                <input type="text" class="form-control" id="movie-name" th:value="${movie.name}"
+                       name="name" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="movie-description" class="font-weight-bold text-light">Description</label>
+                <textarea type="text" class="form-control" id="movie-description" th:text="${movie.description}"
+                          name="description" disabled></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="movie-premiere-date" class="font-weight-bold text-light">Premiere Date</label>
+                <input type="text" class="form-control" id="movie-premiere-date" th:value="${movie.premiereDate}"
+                       name="premiere-date" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="movie-genre" class="font-weight-bold text-light">Genre</label>
+                <input type="text" class="form-control" id="movie-genre" th:value="${movie.genre}"
+                       name="genre" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="movie-director" class="font-weight-bold text-light">Director</label>
+                <input type="text" class="form-control" id="movie-director" th:value="${movie.directorName}"
+                       name="director" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="movie-minutes" class="font-weight-bold text-light">Movie Duration</label>
+                <input type="text" class="form-control" id="movie-minutes" th:value="${movie.movieMinutes}"
+                       name="minutes" disabled>
+            </div>
+
+            <div class="form-group justify-content-center">
+                <label for="movie-photo" class="font-weight-bold text-light">Movie Poster</label>
+                <input type="file" id="movie-photo" class="form-control-file" name="photo" disabled>
+            </div>
+
+            <hr class="hr-2 bg-white">
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-danger btn-lg">Delete Movie</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>

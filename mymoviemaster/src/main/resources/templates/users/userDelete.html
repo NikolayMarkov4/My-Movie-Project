@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="~{fragments/head}"></th:block>
+</head>
+<body>
+<div id="container-wrapper">
+    <header>
+        <th:block th:include="~{fragments/navbar}"></th:block>
+    </header>
+    <div id="root">
+        <h1 class="text-center text-light">Delete User</h1>
+        <hr class="hr-2 bg-white w-30">
+        <form class="form w-25 mx-auto" th:href="@{/users/userDelete/{id}(id=${userId})}" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" id="user-name" th:value="${user.username}"
+                       name="name" disabled>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="user-email" th:value="${user.email}"
+                       name="name" disabled>
+            </div>
+            <hr class="hr-2 bg-white">
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-danger btn-lg">Delete User</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+</html>
