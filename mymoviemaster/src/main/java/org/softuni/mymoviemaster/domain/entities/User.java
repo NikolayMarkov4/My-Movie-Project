@@ -46,7 +46,18 @@ public class User extends BaseEntity implements UserDetails {
         this.email = email;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = Movie.class, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_movies",
+            joinColumns = @JoinColumn(
+                    name = "user_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "movie_id",
+                    referencedColumnName = "id"
+            )
+    )
     public List<Movie> getMovies() {
         return movies;
     }

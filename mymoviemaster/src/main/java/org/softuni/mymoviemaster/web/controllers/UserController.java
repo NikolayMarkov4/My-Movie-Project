@@ -2,8 +2,10 @@ package org.softuni.mymoviemaster.web.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.softuni.mymoviemaster.domain.models.binding.UserRegisterBindingModel;
+import org.softuni.mymoviemaster.domain.models.service.MovieServiceModel;
 import org.softuni.mymoviemaster.domain.models.service.UserServiceModel;
 import org.softuni.mymoviemaster.domain.models.view.UserViewModel;
+import org.softuni.mymoviemaster.service.MovieService;
 import org.softuni.mymoviemaster.service.UserService;
 import org.softuni.mymoviemaster.validation.userValidation.UserRegisterValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,12 +26,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 public class UserController extends BaseController {
     private final UserService userService;
+    private final MovieService movieService;
     private final ModelMapper modelMapper;
     private final UserRegisterValidator userRegisterValidator;
 
     @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper, UserRegisterValidator userRegisterValidator) {
+    public UserController(UserService userService, MovieService movieService, ModelMapper modelMapper, UserRegisterValidator userRegisterValidator) {
         this.userService = userService;
+        this.movieService = movieService;
         this.modelMapper = modelMapper;
         this.userRegisterValidator = userRegisterValidator;
     }
@@ -76,7 +81,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/allUsersAdminSettings")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView adminAllUsersView(ModelAndView modelAndView, Authentication authentication){
+    public ModelAndView adminAllUsersView(ModelAndView modelAndView, Authentication authentication) {
         List<UserViewModel> allUsers = this.userService.findAllUsers()
                 .stream()
                 .map(user -> this.modelMapper.map(user, UserViewModel.class))
@@ -84,18 +89,18 @@ public class UserController extends BaseController {
 
         modelAndView.addObject("users", allUsers);
 
-        return super.view("users/allUsersAdminSettings",modelAndView);
+        return super.view("users/allUsersAdminSettings", modelAndView);
     }
 
     @GetMapping("/userDelete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ModelAndView userDelete(@PathVariable String id, ModelAndView modelAndView){
+    public ModelAndView userDelete(@PathVariable String id, ModelAndView modelAndView) {
         UserViewModel user = this.modelMapper.map(this.userService.findUserById(id), UserViewModel.class);
 
         modelAndView.addObject("userId", id);
         modelAndView.addObject("user", user);
 
-        return super.view("users/userDelete",modelAndView);
+        return super.view("users/userDelete", modelAndView);
     }
 
     @PostMapping("/userDelete/{id}")
@@ -106,13 +111,41 @@ public class UserController extends BaseController {
         return super.redirect("/home");
     }
 
-    @GetMapping("/userProfile/{id}")
-    public ModelAndView userDetailsPage(@PathVariable String id, ModelAndView modelAndView){
-        UserViewModel userViewModel = this.modelMapper.map(this.userService.findUserById(id), UserViewModel.class);
+    @GetMapping("/userProfile")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView seeUserProfile(ModelAndView modelAndView, Principal principal) {
+        UserViewModel userViewModel = this.modelMapper.map(this.userService.findUserByUserName(principal.getName()), UserViewModel.class);
 
         modelAndView.addObject("user", userViewModel);
         modelAndView.addObject("movies", userViewModel.getMovies());
 
-        return super.view("users/userProfile",modelAndView);
+        return super.view("users/userProfile", modelAndView);
+    }
+
+    @RequestMapping("/userProfile/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView deleteMovieFromWatchList(@PathVariable String id, Principal principal) {
+        UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
+        List<String> moviesIds = userServiceModel.getMovies().stream().map(MovieServiceModel::getId)
+                .collect(Collectors.toList());
+
+        if (moviesIds.contains(id)) {
+            MovieServiceModel movieServiceModel = this.modelMapper
+                    .map(this.movieService.findMovieById(id), MovieServiceModel.class);
+
+            List<MovieServiceModel> moviesToSet = userServiceModel.getMovies();
+
+            for (int i = 0; i < moviesToSet.size() ; i++) {
+                if(moviesToSet.get(i).getId().equals(id)){
+                    moviesToSet.remove(i);
+                }
+            }
+
+            userServiceModel.setMovies(moviesToSet);
+
+            this.userService.updateMovieWatchList(userServiceModel);
+        }
+
+        return super.redirect("/home");
     }
 }

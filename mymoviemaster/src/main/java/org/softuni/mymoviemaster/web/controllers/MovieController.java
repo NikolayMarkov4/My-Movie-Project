@@ -138,11 +138,21 @@ public class MovieController extends BaseController {
     @PreAuthorize("isAuthenticated()")
     public ModelAndView movieAddToWatchList(@PathVariable String id, ModelAndView modelAndView, Principal principal) {
         UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
-        MovieServiceModel movieServiceModel = this.modelMapper.map(this.movieService.findMovieById(id), MovieServiceModel.class);
+        List<String> moviesIds = userServiceModel.getMovies().stream().map(MovieServiceModel::getId)
+                .collect(Collectors.toList());
 
-        this.userService.addMovieToWatchList(movieServiceModel, userServiceModel);
+        if(moviesIds.contains(id)){
+            MovieServiceModel movieServiceModel = this.modelMapper
+                    .map(this.movieService.findMovieById(id), MovieServiceModel.class);
 
-        return super.view("/home", modelAndView);
+            List<MovieServiceModel> moviesToSet = userServiceModel.getMovies();
+            moviesToSet.add(movieServiceModel);
+            userServiceModel.setMovies(moviesToSet);
+
+            this.userService.updateMovieWatchList(userServiceModel);
+        }
+
+        return super.redirect("/home");
     }
 
     @GetMapping("/allMovies")
@@ -152,8 +162,6 @@ public class MovieController extends BaseController {
                 .stream()
                 .map(movieServiceModel -> this.modelMapper.map(movieServiceModel, MovieViewModel.class))
                 .collect(Collectors.toList());
-
-        List<String> shortDescriptions;
 
         modelAndView.addObject("movies", allMovies);
 

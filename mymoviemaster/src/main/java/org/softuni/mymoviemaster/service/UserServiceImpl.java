@@ -88,10 +88,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel addMovieToWatchList(MovieServiceModel movieServiceModel, UserServiceModel userServiceModel) {
-        userServiceModel.getMovies().add(movieServiceModel);
+    public UserServiceModel updateMovieWatchList(UserServiceModel userServiceModel) {
+        User userToAddMovie = this.modelMapper.map(userServiceModel, User.class);
 
-        this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));
-        return userServiceModel;
+        return this.modelMapper.map(this.userRepository.saveAndFlush(userToAddMovie), UserServiceModel.class);
     }
+
 }

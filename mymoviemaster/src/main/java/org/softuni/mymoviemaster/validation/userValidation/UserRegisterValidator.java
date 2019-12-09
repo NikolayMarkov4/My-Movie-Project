@@ -35,7 +35,7 @@ public class UserRegisterValidator implements org.springframework.validation.Val
             );
         }
 
-        if (userRegisterBindingModel.getUsername().length() < 3 || userRegisterBindingModel.getUsername().length() > 10) {
+        if (userRegisterBindingModel.getUsername().length() < 3 || userRegisterBindingModel.getUsername().length() > 15) {
             errors.rejectValue(
                     "username",
                     ValidationConstants.USERNAME_LENGTH,

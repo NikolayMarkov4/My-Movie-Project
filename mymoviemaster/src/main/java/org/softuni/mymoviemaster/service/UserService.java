@@ -8,14 +8,9 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
     UserServiceModel registerUser(UserServiceModel userServiceModel);
-
     UserServiceModel findUserByUserName(String username);
-
     List<UserServiceModel> findAllUsers();
-
     UserServiceModel findUserById(String id);
-
     UserServiceModel deleteUser(String id);
-
-    UserServiceModel addMovieToWatchList(MovieServiceModel movieServiceModel, UserServiceModel userServiceModel);
+    UserServiceModel updateMovieWatchList(UserServiceModel userServiceModel);
 }

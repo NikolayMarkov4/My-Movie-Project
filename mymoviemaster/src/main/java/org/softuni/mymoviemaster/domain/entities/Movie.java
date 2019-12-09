@@ -38,7 +38,7 @@ public class Movie extends BaseEntity {
         this.description = description;
     }
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "director_id", referencedColumnName = "id", nullable = false)
     public Director getDirector() {
         return director;
@@ -49,7 +49,7 @@ public class Movie extends BaseEntity {
     }
 
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(targetEntity = Actor.class, fetch = FetchType.EAGER)
     @JoinTable(
             name = "movies_actors",
             joinColumns = @JoinColumn(

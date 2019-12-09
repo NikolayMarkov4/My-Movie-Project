@@ -25,9 +25,12 @@
                         <h3 th:text="${movie.name}"></h3>
                     </div>
 
-                    <a th:href="@{/movies/movieDetails/{id}(id=${movie.id})}" class="btn btn-secondary font-weight-bold text-white">Details</a>
-                    <a th:href="@{/movies/movieEdit/{id}(id=${movie.id})}" class="btn btn-success font-weight-bold text-white">Edit</a>
-                    <a th:href="@{/movies/movieDelete/{id}(id=${movie.id})}" class="btn btn-danger font-weight-bold text-white">Delete</a>
+                    <a th:href="@{/movies/movieDetails/{id}(id=${movie.id})}"
+                       class="btn btn-secondary font-weight-bold text-white">Details</a>
+                    <a th:href="@{/movies/movieEdit/{id}(id=${movie.id})}"
+                       class="btn btn-success font-weight-bold text-white">Edit</a>
+                    <a th:href="@{/movies/movieDelete/{id}(id=${movie.id})}"
+                       class="btn btn-danger font-weight-bold text-white">Delete</a>
                 </div>
             </th:block>
         </section>

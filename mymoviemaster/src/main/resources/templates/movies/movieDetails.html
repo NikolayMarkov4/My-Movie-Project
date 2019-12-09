@@ -70,7 +70,7 @@
             </div>
         </section>
 
-        <form class="form w-25 mx-auto" th:href="@{/movies/movieDetails/{id}(id=${movieId})}" method="post">
+        <form class="form w-25 mx-auto text-center m-2" th:href="@{/movies/movieDetails/{id}(id=${movieId})}" th:method="patch">
             <div>
                 <button type="submit" class="btn btn-dark">Add to WatchList</button>
             </div>
