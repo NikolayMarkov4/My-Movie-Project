@@ -8,7 +8,7 @@ import org.softuni.mymoviemaster.domain.enums.Genre;
 import org.softuni.mymoviemaster.domain.models.binding.CreateMovieBindingModel;
 import org.softuni.mymoviemaster.domain.models.service.MovieServiceModel;
 import org.softuni.mymoviemaster.domain.models.service.ActorServiceModel;
-import org.softuni.mymoviemaster.helpers.build.MovieBuilder;
+import org.softuni.mymoviemaster.helpers.builders.MovieBuilder;
 import org.softuni.mymoviemaster.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
