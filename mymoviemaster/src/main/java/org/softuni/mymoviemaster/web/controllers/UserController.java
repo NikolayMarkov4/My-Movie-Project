@@ -8,6 +8,7 @@ import org.softuni.mymoviemaster.domain.models.view.UserViewModel;
 import org.softuni.mymoviemaster.service.MovieService;
 import org.softuni.mymoviemaster.service.UserService;
 import org.softuni.mymoviemaster.validation.userValidation.UserRegisterValidator;
+import org.softuni.mymoviemaster.web.annotations.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -40,6 +41,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/register")
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Register")
     public ModelAndView register(ModelAndView modelAndView, @ModelAttribute(name = "model") UserRegisterBindingModel model) {
         modelAndView.addObject("model", model);
 
@@ -69,6 +71,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/login")
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Login")
     public ModelAndView login() {
         return super.view("users/login");
     }
@@ -81,6 +84,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/allUsersAdminSettings")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Admin of the page")
     public ModelAndView adminAllUsersView(ModelAndView modelAndView, Authentication authentication) {
         List<UserViewModel> allUsers = this.userService.findAllUsers()
                 .stream()

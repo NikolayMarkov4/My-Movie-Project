@@ -5,7 +5,6 @@ import org.softuni.mymoviemaster.domain.models.binding.CreatePersonBindingModel;
 import org.softuni.mymoviemaster.domain.models.service.ActorServiceModel;
 import org.softuni.mymoviemaster.domain.models.view.ActorFullViewModel;
 import org.softuni.mymoviemaster.domain.models.view.ActorViewModel;
-import org.softuni.mymoviemaster.domain.models.view.DirectorViewModel;
 import org.softuni.mymoviemaster.domain.models.view.MovieViewModel;
 import org.softuni.mymoviemaster.service.ActorService;
 import org.softuni.mymoviemaster.service.CloudinaryService;

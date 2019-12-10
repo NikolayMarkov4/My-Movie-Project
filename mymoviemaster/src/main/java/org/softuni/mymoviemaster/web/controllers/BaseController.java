@@ -1,7 +1,5 @@
 package org.softuni.mymoviemaster.web.controllers;
 
-import org.dom4j.rule.Mode;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class BaseController {

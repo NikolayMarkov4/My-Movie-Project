@@ -8,6 +8,7 @@ import org.softuni.mymoviemaster.domain.enums.Genre;
 import org.softuni.mymoviemaster.domain.models.binding.CreateMovieBindingModel;
 import org.softuni.mymoviemaster.domain.models.service.MovieServiceModel;
 import org.softuni.mymoviemaster.domain.models.service.ActorServiceModel;
+import org.softuni.mymoviemaster.helpers.build.MovieBuilder;
 import org.softuni.mymoviemaster.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,30 +84,22 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieServiceModel editMovie(String id, MovieServiceModel model) {
-        Movie movie = this.movieRepository.findById(id).orElseThrow(IllegalArgumentException::new);
-
-        movie.setName(model.getName());
-
-        movie.setActors(model.getActors()
-                .stream()
-                .map(actorServiceModel -> this.modelMapper.map(actorServiceModel, Actor.class))
-                .collect(Collectors.toList()));
-
-        movie.setDirector(this.modelMapper.map(model.getDirector(), Director.class));
-
-        movie.setDescription(model.getDescription());
-
-        movie.setGenre(Genre.valueOf(model.getGenre()));
-
-        movie.setMovieMinutes(model.getMovieMinutes());
-
-        movie.setPhoto(model.getPhoto());
-
-        movie.setPremiereDate(model.getPremiereDate());
+        Movie movie = new MovieBuilder(this.movieRepository.findById(id).orElseThrow(IllegalArgumentException::new))
+                .withId(id)
+                .withName(model.getName())
+                .withDescription(model.getDescription())
+                .withPremiereDate(model.getPremiereDate())
+                .withPoster(model.getPhoto())
+                .withDirector(this.modelMapper.map(model.getDirector(), Director.class))
+                .withActorsPlayingIn(model.getActors()
+                        .stream()
+                        .map(actorServiceModel -> this.modelMapper.map(actorServiceModel, Actor.class))
+                        .collect(Collectors.toList()))
+                .withGenre(Genre.valueOf(model.getGenre()))
+                .withDuration(model.getMovieMinutes())
+                .build();
 
         Movie movieToReturn = this.movieRepository.saveAndFlush(movie);
-
-        //TODO: make a builder design pattern for the edit
 
         return this.modelMapper.map(movieToReturn, MovieServiceModel.class);
     }

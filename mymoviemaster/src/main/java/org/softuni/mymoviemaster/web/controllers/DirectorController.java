@@ -3,7 +3,6 @@ package org.softuni.mymoviemaster.web.controllers;
 import org.modelmapper.ModelMapper;
 import org.softuni.mymoviemaster.domain.models.binding.CreatePersonBindingModel;
 import org.softuni.mymoviemaster.domain.models.service.DirectorServiceModel;
-import org.softuni.mymoviemaster.domain.models.view.ActorFullViewModel;
 import org.softuni.mymoviemaster.domain.models.view.DirectorViewModel;
 import org.softuni.mymoviemaster.domain.models.view.MovieViewModel;
 import org.softuni.mymoviemaster.service.CloudinaryService;
