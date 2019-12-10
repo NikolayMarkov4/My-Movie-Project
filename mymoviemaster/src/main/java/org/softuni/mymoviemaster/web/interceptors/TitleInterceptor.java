@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 public class TitleInterceptor extends HandlerInterceptorAdapter {
 
     @Override
-    public void postHandle(HttpServletRequest request,
-                           HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        String title = "My Movie Master";
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        String title = "Movie Master";
 
         if (modelAndView == null) {
             modelAndView = new ModelAndView();
