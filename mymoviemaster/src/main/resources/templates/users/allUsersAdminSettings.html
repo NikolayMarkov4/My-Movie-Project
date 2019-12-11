@@ -21,7 +21,7 @@
                         <p th:text="${user.email}" class="h4"></p>
                     </div>
                     <div id="user-admin-buttons" class="col-sm">
-                        <a th:href="@{/users/userProfile/{id}(id=${user.id})}"
+                        <a th:href="@{/users/userProfileAdmin/{id}(id=${user.id})}"
                            class="btn btn-secondary font-weight-bold text-white">Details</a>
                         <a th:href="@{/users/userDelete/{id}(id=${user.id})}"
                            class="btn btn-danger font-weight-bold text-white">Delete</a>

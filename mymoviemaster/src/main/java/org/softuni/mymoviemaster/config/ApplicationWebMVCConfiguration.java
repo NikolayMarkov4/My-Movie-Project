@@ -4,10 +4,12 @@ import org.softuni.mymoviemaster.web.interceptors.LoggedInInterceptor;
 import org.softuni.mymoviemaster.web.interceptors.TitleInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@EnableScheduling
 public class ApplicationWebMVCConfiguration implements WebMvcConfigurer {
     private final TitleInterceptor titleInterceptor;
     private  final LoggedInInterceptor loggedInInterceptor;

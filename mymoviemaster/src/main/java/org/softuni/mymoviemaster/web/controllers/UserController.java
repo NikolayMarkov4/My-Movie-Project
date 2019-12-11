@@ -5,7 +5,6 @@ import org.softuni.mymoviemaster.domain.models.binding.UserRegisterBindingModel;
 import org.softuni.mymoviemaster.domain.models.service.MovieServiceModel;
 import org.softuni.mymoviemaster.domain.models.service.UserServiceModel;
 import org.softuni.mymoviemaster.domain.models.view.UserViewModel;
-import org.softuni.mymoviemaster.service.MovieService;
 import org.softuni.mymoviemaster.service.UserService;
 import org.softuni.mymoviemaster.validation.userValidation.UserRegisterValidator;
 import org.softuni.mymoviemaster.web.annotations.PageTitle;
@@ -27,14 +26,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 public class UserController extends BaseController {
     private final UserService userService;
-    private final MovieService movieService;
     private final ModelMapper modelMapper;
     private final UserRegisterValidator userRegisterValidator;
 
     @Autowired
-    public UserController(UserService userService, MovieService movieService, ModelMapper modelMapper, UserRegisterValidator userRegisterValidator) {
+    public UserController(UserService userService, ModelMapper modelMapper, UserRegisterValidator userRegisterValidator) {
         this.userService = userService;
-        this.movieService = movieService;
         this.modelMapper = modelMapper;
         this.userRegisterValidator = userRegisterValidator;
     }
@@ -74,12 +71,6 @@ public class UserController extends BaseController {
     @PageTitle("Login")
     public ModelAndView login() {
         return super.view("users/login");
-    }
-
-
-    @InitBinder
-    private void initBinder(WebDataBinder webDataBinder) {
-        webDataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
     @GetMapping("/allUsersAdminSettings")
@@ -134,9 +125,6 @@ public class UserController extends BaseController {
                 .collect(Collectors.toList());
 
         if (moviesIds.contains(id)) {
-            MovieServiceModel movieServiceModel = this.modelMapper
-                    .map(this.movieService.findMovieById(id), MovieServiceModel.class);
-
             List<MovieServiceModel> moviesToSet = userServiceModel.getMovies();
 
             for (int i = 0; i < moviesToSet.size() ; i++) {
@@ -153,16 +141,31 @@ public class UserController extends BaseController {
         return super.redirect("/home");
     }
 
+    @GetMapping("/userProfileAdmin/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView seeUserProfileAdmin(@PathVariable String id, ModelAndView modelAndView) {
+        UserViewModel userViewModel = this.modelMapper.map(this.userService.findUserById(id), UserViewModel.class);
+
+        modelAndView.addObject("user", userViewModel);
+        modelAndView.addObject("movies", userViewModel.getMovies());
+
+        return super.view("users/adminProfileDetails", modelAndView);
+    }
+
     @GetMapping("/fetch")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseBody
     public int fetchCategories() {
-        int users = this.userService.findAllUsers()
+        int users = (int) this.userService.findAllUsers()
                 .stream()
-                .map(user -> this.modelMapper.map(user, UserViewModel.class))
-                .collect(Collectors.toList())
-                .size();
+                .map(user -> this.modelMapper.map(user, UserViewModel.class)).count();
 
         return users;
     }
+
+    @InitBinder
+    private void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
+
 }

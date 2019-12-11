@@ -141,7 +141,7 @@ public class MovieController extends BaseController {
         List<String> moviesIds = userServiceModel.getMovies().stream().map(MovieServiceModel::getId)
                 .collect(Collectors.toList());
 
-        if(moviesIds.contains(id)){
+        if(!moviesIds.contains(id)){
             MovieServiceModel movieServiceModel = this.modelMapper
                     .map(this.movieService.findMovieById(id), MovieServiceModel.class);
 

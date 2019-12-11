@@ -12,35 +12,59 @@
     <div id="root-register">
         <h1 class="text-center text-light">Register</h1>
         <hr class="hr-2 bg-white w-30">
-        <form class="form w-25  mx-auto" th:action="@{/users/register}" th:method="post">
+        <form class="form w-25  mx-auto" th:action="@{/users/register}" th:method="post" th:object="${model}">
             <div class="form-group">
                 <label for="username" class="font-weight-bold text-light">Username</label>
                 <input type="text" class="form-control" id="username" placeholder="Username..." name="username">
-<!--                <th:block th:if="${#fields.hasErrors('username')}">-->
-<!--                    <small class="error" th:errors="*{username}"></small>-->
-<!--                </th:block>-->
+
+                <th:block th:if="${#fields.hasErrors('username')}">
+                    <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+                        <small class="error" th:errors="*{username}"></small>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </th:block>
+
             </div>
             <div class="form-group">
                 <label for="password" class="font-weight-bold text-light">Password</label>
                 <input type="password" class="form-control" id="password" placeholder="Password..." name="password">
-<!--                <th:block th:if="${#fields.hasErrors('password')}">-->
-<!--                    <small class="error" th:errors="*{password}"></small>-->
-<!--                </th:block>-->
+
+                <th:block th:if="${#fields.hasErrors('password')}">
+                    <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+                        <small class="error" th:errors="*{password}"></small>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </th:block>
             </div>
             <div class="form-group">
                 <label for="confirmPassword" class="font-weight-bold text-light">Confirm Password</label>
                 <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password..."
                        name="confirmPassword">
-<!--                <th:block th:if="${#fields.hasErrors('confirmPassword')}">-->
-<!--                    <small class="error" th:errors="*{confirmPassword}"></small>-->
-<!--                </th:block>-->
+
+                <th:block th:if="${#fields.hasErrors('confirmPassword')}">
+                    <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+                        <small class="error" th:errors="*{confirmPassword}"></small>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </th:block>
             </div>
             <div class="form-group">
                 <label for="email" class="font-weight-bold text-light">Email</label>
                 <input type="email" class="form-control" id="email" placeholder="Email..." name="email">
-<!--                <th:block th:if="${#fields.hasErrors('email')}">-->
-<!--                    <small class="error" th:errors="*{email}"></small>-->
-<!--                </th:block>-->
+                <th:block th:if="${#fields.hasErrors('email')}">
+                    <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+                        <small class="alert alert-danger" th:errors="*{email}"></small>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </th:block>
             </div>
             <hr class="hr-2 bg-white">
             <div class="button-holder d-flex justify-content-center">
