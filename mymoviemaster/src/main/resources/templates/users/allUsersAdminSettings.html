@@ -28,12 +28,19 @@
                     </div>
                 </div>
             </th:block>
+            <div id="count-off-all-users">
+            </div>
         </section>
     </div>
 </div>
+<script>
+    fetch('/users/fetch')
+        .then((response) => response.json())
+        .then((data) => $('#count-off-all-users').append(`<p class="h3 bg-secondary text-light justify-content-center text-center m-2 p-2">The count of all registered users is  ${data}</p>`))
+        .catch((error) => console.error(error))
+</script>
 <footer>
     <th:block th:include="~{fragments/footer}"></th:block>
 </footer>
 </body>
-
 </html>

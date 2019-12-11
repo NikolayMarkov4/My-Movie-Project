@@ -152,4 +152,17 @@ public class UserController extends BaseController {
 
         return super.redirect("/home");
     }
+
+    @GetMapping("/fetch")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @ResponseBody
+    public int fetchCategories() {
+        int users = this.userService.findAllUsers()
+                .stream()
+                .map(user -> this.modelMapper.map(user, UserViewModel.class))
+                .collect(Collectors.toList())
+                .size();
+
+        return users;
+    }
 }
